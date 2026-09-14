@@ -98,9 +98,9 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <div className="mx-auto flex max-w-6xl gap-8 px-6 py-10">
+      <div className="flex gap-8 px-6 py-10 md:px-10">
         <AdminSidebar sections={adminNavSections} activeSection={activeSection} onSelect={setActiveSection} />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 max-w-5xl flex-1">
           <SiteEditor content={content} onChange={handleChange} activeSection={activeSection} />
         </div>
       </div>

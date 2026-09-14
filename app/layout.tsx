@@ -54,8 +54,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`bg-background ${manrope.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`bg-background ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="antialiased">
+        <script
+          // Runs before paint to avoid a flash of the wrong theme. /admin
+          // intentionally stays dark regardless of the public toggle —
+          // its own styling was never built out for a light variant.
+          dangerouslySetInnerHTML={{
+            __html: `try{if(!location.pathname.startsWith('/admin')){var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}}catch(e){}`,
+          }}
+        />
         <Providers>{children}</Providers>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

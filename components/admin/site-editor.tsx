@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 import {
-  FileText, User, Compass, Sparkles, Grid2x2, Info, Briefcase,
+  FileText, User, Compass, Sparkles, Grid2x2, Info, Award, Building2, GraduationCap, Briefcase,
   Share2, GitBranch, FolderKanban, Quote, BarChart3, Mail, PanelBottom, type LucideIcon,
 } from 'lucide-react'
 import {
@@ -150,17 +150,72 @@ const sections: EditorSection[] = [
         <TextField {...f} path={['about', 'heading']} label="Heading" />
       </div>
       <TextAreaField {...f} path={['about', 'paragraph']} label="Paragraph" />
+    </>,
+  },
+  {
+    id: 'certifications',
+    label: 'Certifications',
+    icon: Award,
+    description: 'Shown inside the About section, in place of stats.',
+    render: (f) => <>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TextField {...f} path={['certificationsHeading', 'eyebrow']} label="Eyebrow" />
+        <TextField {...f} path={['certificationsHeading', 'heading']} label="Heading" />
+      </div>
       <ArrayEditor
         {...f}
-        path={['about', 'stats']}
-        itemLabel={(item: any) => item.label}
-        createItem={() => ({ value: 0, prefix: '', suffix: '', decimals: 0, label: 'New stat' })}
+        path={['certifications']}
+        itemLabel={(item: any) => item.name}
+        createItem={() => ({ name: 'New certification', issuer: '', year: '' })}
         renderItem={(itemPath) => <>
-          <NumberField {...f} path={[...itemPath, 'value']} label="Value" />
-          <NumberField {...f} path={[...itemPath, 'decimals']} label="Decimals" />
-          <TextField {...f} path={[...itemPath, 'prefix']} label="Prefix" />
-          <TextField {...f} path={[...itemPath, 'suffix']} label="Suffix" />
-          <TextField {...f} path={[...itemPath, 'label']} label="Label" />
+          <TextField {...f} path={[...itemPath, 'name']} label="Name" />
+          <TextField {...f} path={[...itemPath, 'issuer']} label="Issuer" />
+          <TextField {...f} path={[...itemPath, 'year']} label="Year" />
+        </>}
+      />
+    </>,
+  },
+  {
+    id: 'experience',
+    label: 'Experience',
+    icon: Building2,
+    render: (f) => <>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TextField {...f} path={['experienceHeading', 'eyebrow']} label="Eyebrow" />
+        <TextField {...f} path={['experienceHeading', 'heading']} label="Heading" />
+      </div>
+      <ArrayEditor
+        {...f}
+        path={['experience']}
+        itemLabel={(item: any) => `${item.role} — ${item.company}`}
+        createItem={() => ({ role: 'New role', company: '', period: '', description: '' })}
+        renderItem={(itemPath) => <>
+          <TextField {...f} path={[...itemPath, 'role']} label="Role" />
+          <TextField {...f} path={[...itemPath, 'company']} label="Company" />
+          <TextField {...f} path={[...itemPath, 'period']} label="Period" />
+          <div className="sm:col-span-2"><TextAreaField {...f} path={[...itemPath, 'description']} label="Description" /></div>
+        </>}
+      />
+    </>,
+  },
+  {
+    id: 'education',
+    label: 'Education',
+    icon: GraduationCap,
+    render: (f) => <>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TextField {...f} path={['educationHeading', 'eyebrow']} label="Eyebrow" />
+        <TextField {...f} path={['educationHeading', 'heading']} label="Heading" />
+      </div>
+      <ArrayEditor
+        {...f}
+        path={['education']}
+        itemLabel={(item: any) => item.degree}
+        createItem={() => ({ degree: 'New degree', school: '', period: '' })}
+        renderItem={(itemPath) => <>
+          <TextField {...f} path={[...itemPath, 'degree']} label="Degree" />
+          <TextField {...f} path={[...itemPath, 'school']} label="School" />
+          <TextField {...f} path={[...itemPath, 'period']} label="Period" />
         </>}
       />
     </>,

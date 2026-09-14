@@ -87,7 +87,7 @@ export function HeroScene({
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-3 border-t border-white/10 pt-4" style={{ transform: 'translateZ(14px)' }}>
+          <div className="grid grid-cols-3 gap-3 border-t border-border pt-4" style={{ transform: 'translateZ(14px)' }}>
             {kpis.map((kpi) => (
               <div key={kpi.label}>
                 <p className={`font-mono-tight text-lg font-bold ${toneText(kpi.tone)}`}>{kpi.value}</p>

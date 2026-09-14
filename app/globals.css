@@ -35,11 +35,40 @@
   --muted: #14160f;
   --muted-foreground: #9aa08c;
   --border: rgba(232, 234, 220, 0.12);
+  --panel-shadow: 0 40px 100px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.02) inset;
+  --float-shadow: 0 24px 60px -20px rgba(0,0,0,.65);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --background: #f7f6f2;
+  --foreground: #16160f;
+  --card: #ffffff;
+  --card-foreground: #16160f;
+  --primary: #2f5bd0;
+  --primary-foreground: #ffffff;
+  --secondary: #b9812f;
+  --secondary-foreground: #fffaf0;
+  --accent: #7c4f22;
+  --accent-foreground: #fff8f0;
+  --muted: #ece9e0;
+  --muted-foreground: #66695c;
+  --border: rgba(20, 20, 15, 0.12);
+  --panel-shadow: 0 30px 70px -35px rgba(20,20,15,.22), 0 1px 2px rgba(20,20,15,.04);
+  --float-shadow: 0 16px 40px -22px rgba(20,20,15,.2);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--background); }
-body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); }
+body {
+  margin: 0;
+  background-color: var(--background);
+  background-image: url('/pattern-analytics.svg');
+  background-repeat: repeat;
+  background-size: 240px 240px;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
 ::selection { background: var(--primary); color: var(--primary-foreground); }
 
 /* ---------- background texture ---------- */
@@ -54,6 +83,15 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 85%);
 }
+.section-texture { position: relative; isolation: isolate; }
+.section-texture::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 30px);
+  opacity: .6;
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 30%, black 30%, transparent 85%);
+}
+.section-texture > * { position: relative; z-index: 1; }
 
 /* ---------- type helpers ---------- */
 .eyebrow { color: var(--primary); font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; display: inline-flex; align-items: center; gap: .5em; }
@@ -94,18 +132,18 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
 .dashboard-card {
   transform-style: preserve-3d;
   border-radius: 1.5rem;
-  border: 1px solid rgba(232,234,220,.14);
-  background: linear-gradient(155deg, rgba(58,109,240,.14), rgba(16,18,16,.7) 55%);
-  box-shadow: 0 40px 100px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.02) inset;
+  border: 1px solid var(--border);
+  background: linear-gradient(155deg, rgba(58,109,240,.14), color-mix(in srgb, var(--card) 88%, transparent) 55%);
+  box-shadow: var(--panel-shadow);
   backdrop-filter: blur(6px);
 }
 .float-card {
   transform-style: preserve-3d;
   border-radius: 1rem;
-  border: 1px solid rgba(232,234,220,.16);
-  background: rgba(16,18,16,.82);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 90%, transparent);
   backdrop-filter: blur(10px);
-  box-shadow: 0 24px 60px -20px rgba(0,0,0,.65);
+  box-shadow: var(--float-shadow);
 }
 
 /* ---------- tilt cards (services / work) ---------- */

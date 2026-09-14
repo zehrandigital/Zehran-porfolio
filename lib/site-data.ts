@@ -24,6 +24,9 @@ export const profile = {
 export const nav = {
   links: [
     { label: 'About', href: '#about' },
+    { label: 'Certifications', href: '#certifications' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Education', href: '#education' },
     { label: 'Services', href: '#services' },
     { label: 'Work', href: '#work' },
     { label: 'Process', href: '#process' },
@@ -69,16 +72,41 @@ export const about = {
   eyebrow: '01 / The strategist behind the spend',
   heading: 'Growth, backed by data.',
   paragraph: 'The best campaigns don’t rely on luck. I pair sharp media-buying instincts with rigorous testing and clean attribution, so every dollar you spend earns its keep and every decision has a number behind it.',
-  stats: [
-    { value: 7, suffix: '+', decimals: 0, label: 'Years in performance' },
-    { value: 18, prefix: '$', suffix: 'M+', decimals: 0, label: 'Ad spend managed' },
-    { value: 4.8, suffix: 'x', decimals: 1, label: 'Average ROAS' },
-    { value: 60, suffix: '+', decimals: 0, label: 'Brands scaled' },
-  ],
 }
 
+export const certificationsHeading = {
+  eyebrow: 'Certifications',
+  heading: 'Certified across the platforms I run.',
+}
+
+export const certifications = [
+  { name: 'Google Ads Certified', issuer: 'Google Skillshop', year: '2024' },
+  { name: 'Meta Blueprint Certified', issuer: 'Meta', year: '2023' },
+  { name: 'GA4 Certified', issuer: 'Google Skillshop', year: '2023' },
+  { name: 'Inbound Marketing', issuer: 'HubSpot Academy', year: '2022' },
+]
+
+export const experienceHeading = {
+  eyebrow: '02 / Background',
+  heading: 'Where the results were built.',
+}
+
+export const experience = [
+  { role: 'Performance Marketing Strategist', company: 'Oasis Ascend', period: '2023 — Present', description: 'Leading paid media strategy and execution across Google, Meta, and TikTok for ecommerce and SaaS client accounts, with full ownership of tracking, reporting, and creative testing.' },
+  { role: 'Paid Media Specialist', company: 'Previous Agency', period: '2021 — 2023', description: 'Managed multi-channel ad accounts, ran structured creative testing programs, and built the reporting dashboards clients actually used.' },
+]
+
+export const educationHeading = {
+  eyebrow: 'Education',
+  heading: 'The foundation.',
+}
+
+export const education = [
+  { degree: 'B.A. in Marketing', school: 'State University', period: '2017 — 2021' },
+]
+
 export const servicesHeading = {
-  eyebrow: '02 / What I do',
+  eyebrow: '03 / What I do',
   heading: 'Full-funnel performance marketing.',
 }
 
@@ -98,7 +126,7 @@ export const services: {
 ]
 
 export const socialHeading = {
-  eyebrow: '03 / Beyond paid',
+  eyebrow: '04 / Beyond paid',
   heading: 'Social Media Management & Growth.',
   description: 'The organic side that makes paid work harder — a consistent, on-brand presence that compounds reach instead of renting it.',
 }
@@ -117,7 +145,7 @@ export const socialCapabilities = [
 ]
 
 export const processHeading = {
-  eyebrow: '04 / How we get there',
+  eyebrow: '05 / How we get there',
   heading: 'A process built for compounding results.',
 }
 
@@ -130,7 +158,7 @@ export const process = [
 ]
 
 export const workHeading = {
-  eyebrow: '05 / Selected work',
+  eyebrow: '06 / Selected work',
   heading: 'Proof, not promises.',
   linkLabel: 'Have a project?',
   linkHref: '#contact',
@@ -173,7 +201,7 @@ export const testimonials = [
 ]
 
 export const performanceSnapshot = {
-  eyebrow: '06 / Live snapshot',
+  eyebrow: '07 / Live snapshot',
   heading: 'Where the budget performs best.',
   description: 'Average client ROAS by channel across active accounts, reallocated weekly toward what’s actually converting.',
   channels: [
@@ -185,7 +213,7 @@ export const performanceSnapshot = {
 }
 
 export const contact = {
-  eyebrow: '07 / Let’s scale something',
+  eyebrow: '08 / Let’s scale something',
   heading: 'Ready to grow profitably?',
   paragraph: 'Tell me about your funnel, your current numbers, and where you want ROAS to be next quarter.',
   email: profile.email,
@@ -211,7 +239,9 @@ export const footer = {
 
 /** Full payload shape served by app/api/site-data and fetched via useSiteData(). */
 export const siteData = {
-  meta, profile, nav, hero, platformsLabel, platforms, about, servicesHeading, services,
+  meta, profile, nav, hero, platformsLabel, platforms, about,
+  certificationsHeading, certifications, experienceHeading, experience, educationHeading, education,
+  servicesHeading, services,
   socialHeading, socialCapabilities,
   processHeading, process, workHeading, projects, testimonials, performanceSnapshot, contact, footer,
 }

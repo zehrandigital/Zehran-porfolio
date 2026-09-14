@@ -24,7 +24,7 @@ export function AboutPhoto({
   const showPhoto = Boolean(photoSrc) && photoReady
 
   return (
-    <TiltCard max={6} className="aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[1.75rem] border border-white/10">
+    <TiltCard max={6} className="aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[1.75rem] border border-foreground/10">
       {showPhoto ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={photoSrc} alt={photoAlt} className="h-full w-full object-cover" />
