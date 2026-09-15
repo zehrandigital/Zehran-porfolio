@@ -57,11 +57,13 @@ export default function RootLayout({
     <html lang="en" className={`bg-background ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="antialiased">
         <script
-          // Runs before paint to avoid a flash of the wrong theme. /admin
-          // intentionally stays dark regardless of the public toggle —
-          // its own styling was never built out for a light variant.
+          // Runs before paint to avoid a flash of the wrong theme. The public
+          // site defaults to light and only switches to dark when the user
+          // has chosen it. /admin intentionally stays dark regardless of the
+          // public toggle — its own styling was never built out for a light
+          // variant.
           dangerouslySetInnerHTML={{
-            __html: `try{if(!location.pathname.startsWith('/admin')){var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}}catch(e){}`,
+            __html: `try{if(location.pathname.startsWith('/admin')){document.documentElement.setAttribute('data-theme','dark')}else{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark')}}catch(e){}`,
           }}
         />
         <Providers>{children}</Providers>

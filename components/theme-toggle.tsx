@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react'
 import { Moon, Sun } from 'lucide-react'
 
-/** Public-site light/dark toggle. Persisted in localStorage; /admin always stays dark (see the anti-flash script in layout.tsx). */
+/** Public-site light/dark toggle. Defaults to light, persisted in localStorage; /admin always stays dark (see the anti-flash script in layout.tsx). */
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+  const [theme, setTheme] = useState<'dark' | 'light'>('light')
 
   useEffect(() => {
-    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'
+    const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
     setTheme(current)
   }, [])
 
