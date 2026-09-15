@@ -71,7 +71,7 @@ export const platforms = [
 export const about = {
   eyebrow: '01 / The strategist behind the spend',
   heading: 'Growth, backed by data.',
-  paragraph: 'The best campaigns don’t rely on luck. I pair sharp media-buying instincts with rigorous testing and clean attribution, so every dollar you spend earns its keep and every decision has a number behind it.',
+  paragraph: 'The best campaigns don’t rely on luck. Over the past several years I’ve managed eight figures in ad spend across Google, Meta, and TikTok — building account structures, creative testing loops, and attribution systems that still hold up once volume gets serious. I pair sharp media-buying instincts with rigorous testing and clean tracking, so every dollar you spend earns its keep and every decision has a number behind it. Whether I’m pushing a DTC brand past its growth plateau or standing up paid acquisition for a SaaS product from zero, the process stays the same: instrument first, spend second, and never mistake a vanity metric for a real one.',
 }
 
 export const certificationsHeading = {

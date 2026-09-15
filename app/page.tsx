@@ -7,6 +7,7 @@ import { Counter } from '@/components/counter'
 import { TiltCard } from '@/components/tilt-card'
 import { Marquee } from '@/components/marquee'
 import { HeroScene } from '@/components/hero-scene'
+import { CustomCursor } from '@/components/custom-cursor'
 import { AboutPhoto } from '@/components/about-photo'
 import { ChannelChart } from '@/components/channel-chart'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -37,6 +38,7 @@ export default function Page() {
   const headlineAfter = highlightIndex === -1 ? '' : hero.headline.slice(highlightIndex + hero.highlight.length)
 
   return <main className="min-h-screen overflow-hidden bg-background text-foreground">
+    <CustomCursor />
     <nav className="fixed inset-x-0 top-0 z-40 border-b border-foreground/10 bg-background/80 px-6 py-5 backdrop-blur-xl md:px-12">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <a href="#top" className="font-mono text-sm font-bold tracking-[0.24em] text-foreground">{profile.brandMark}<span className="text-primary">.</span></a>
@@ -114,16 +116,22 @@ export default function Page() {
           <div id="certifications" className="mt-10 border-t border-foreground/10 pt-8">
             <p className="font-mono-tight text-xs uppercase tracking-widest text-muted-foreground">{certificationsHeading.eyebrow}</p>
             <h3 className="mt-2 text-lg font-semibold text-foreground">{certificationsHeading.heading}</h3>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {certifications.map((cert) => (
-                <div key={cert.name} className="flex items-start gap-3 rounded-2xl border border-foreground/10 bg-foreground/[.02] px-4 py-3.5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"><Award size={16} /></span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-foreground">{cert.name}</p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">{cert.issuer} · {cert.year}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {certifications.map((cert, i) => {
+                const tone = ['primary', 'secondary', 'accent'][i % 3] as 'primary' | 'secondary' | 'accent'
+                const toneBg = { primary: 'bg-primary/10 text-primary', secondary: 'bg-secondary/10 text-secondary', accent: 'bg-accent/10 text-accent' }[tone]
+                const toneBorder = { primary: 'hover:border-primary/50', secondary: 'hover:border-secondary/50', accent: 'hover:border-accent/50' }[tone]
+                return (
+                  <TiltCard key={cert.name} max={6} className={`rounded-2xl border border-foreground/10 bg-foreground/[.02] p-5 transition-colors ${toneBorder}`}>
+                    <div className="flex items-start justify-between gap-3">
+                      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${toneBg}`}><Award size={18} /></span>
+                      <span className="font-mono-tight text-[10px] uppercase tracking-widest text-muted-foreground">{cert.year}</span>
+                    </div>
+                    <p className="mt-4 text-base font-semibold leading-tight text-foreground">{cert.name}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{cert.issuer}</p>
+                  </TiltCard>
+                )
+              })}
             </div>
           </div>
         </Reveal>
@@ -249,7 +257,7 @@ export default function Page() {
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {projects.map((project, index) => (
             <Reveal key={project.title} delay={index * 100}>
-              <button onClick={() => setActiveProject(index)} className="group w-full text-left">
+              <button onClick={() => setActiveProject(index)} className="group w-full text-left" data-cursor-label="View">
                 <TiltCard max={5} className={`project-art bg-gradient-to-br ${project.color}`}>
                   <div className="project-lines" />
                   <span className="relative z-10 rounded-full border border-white/40 bg-white/10 px-3 py-1 text-xs uppercase tracking-widest backdrop-blur">{workHeading.cardBadgeLabel}</span>
@@ -321,7 +329,7 @@ export default function Page() {
 
     {activeProject !== null && <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#050602]/80 p-6 backdrop-blur-md" role="dialog" aria-modal="true" aria-label={`${projects[activeProject].title} case study`}>
       <div className="relative w-full max-w-2xl rounded-3xl border border-foreground/15 bg-card p-8 shadow-2xl md:p-12">
-        <button aria-label="Close case study" onClick={() => setActiveProject(null)} className="absolute right-6 top-6 rounded-full border border-foreground/15 p-2 hover:border-primary"><X size={18} /></button>
+        <button aria-label="Close case study" onClick={() => setActiveProject(null)} className="absolute right-6 top-6 rounded-full border border-foreground/15 p-2 hover:border-primary" data-cursor-label="Close"><X size={18} /></button>
         <p className="eyebrow">{workHeading.modalEyebrowPrefix} / {projects[activeProject].category}</p>
         <h2 className="mt-5 text-4xl font-semibold">{projects[activeProject].title}</h2>
         <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{projects[activeProject].description} {projects[activeProject].extendedNote}</p>
