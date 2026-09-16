@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Check, LogOut, ExternalLink } from 'lucide-react'
+import { Check, LogOut, ExternalLink, Inbox } from 'lucide-react'
 import { SiteEditor, adminNavSections } from '@/components/admin/site-editor'
+import { AdminMessages } from '@/components/admin/messages'
 import { AdminSidebar } from '@/components/admin/sidebar'
 import { siteData as defaultSiteData, type SiteData } from '@/lib/site-data'
+
+const MESSAGES_SECTION_ID = 'messages'
+const navSections = [...adminNavSections, { id: MESSAGES_SECTION_ID, label: 'Messages', icon: Inbox }]
 
 export default function AdminPage() {
   const router = useRouter()
@@ -99,9 +103,11 @@ export default function AdminPage() {
       </header>
 
       <div className="flex gap-8 px-6 py-10 md:px-10">
-        <AdminSidebar sections={adminNavSections} activeSection={activeSection} onSelect={setActiveSection} />
+        <AdminSidebar sections={navSections} activeSection={activeSection} onSelect={setActiveSection} />
         <div className="min-w-0 max-w-5xl flex-1">
-          <SiteEditor content={content} onChange={handleChange} activeSection={activeSection} />
+          {activeSection === MESSAGES_SECTION_ID
+            ? <AdminMessages />
+            : <SiteEditor content={content} onChange={handleChange} activeSection={activeSection} />}
         </div>
       </div>
     </main>

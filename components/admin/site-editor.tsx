@@ -156,7 +156,7 @@ const sections: EditorSection[] = [
     id: 'certifications',
     label: 'Certifications',
     icon: Award,
-    description: 'Shown inside the About section, in place of stats.',
+    description: 'Shown inside the About section, in place of stats. Paste a direct image link to show the certificate image when a visitor clicks the card — for Google Drive, share the file as "Anyone with the link" and paste that link, it\'s converted automatically; for Google Photos, use the direct image URL (open the photo, right-click the image itself, and copy its address).',
     render: (f) => <>
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField {...f} path={['certificationsHeading', 'eyebrow']} label="Eyebrow" />
@@ -166,11 +166,12 @@ const sections: EditorSection[] = [
         {...f}
         path={['certifications']}
         itemLabel={(item: any) => item.name}
-        createItem={() => ({ name: 'New certification', issuer: '', year: '' })}
+        createItem={() => ({ name: 'New certification', issuer: '', year: '', imageUrl: '' })}
         renderItem={(itemPath) => <>
           <TextField {...f} path={[...itemPath, 'name']} label="Name" />
           <TextField {...f} path={[...itemPath, 'issuer']} label="Issuer" />
           <TextField {...f} path={[...itemPath, 'year']} label="Year" />
+          <TextField {...f} path={[...itemPath, 'imageUrl']} label="Certificate image URL (Google Drive / Photos link)" />
         </>}
       />
     </>,
@@ -248,14 +249,43 @@ const sections: EditorSection[] = [
     id: 'social',
     label: 'Social Media',
     icon: Share2,
-    description: 'The "Social Media Management & Growth" capabilities section.',
+    description: 'The "Social Media Management & Growth" section.',
     render: (f) => <>
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField {...f} path={['socialHeading', 'eyebrow']} label="Eyebrow" />
         <TextField {...f} path={['socialHeading', 'heading']} label="Heading" />
       </div>
       <TextAreaField {...f} path={['socialHeading', 'description']} label="Description" />
-      <StringListField {...f} path={['socialCapabilities']} label="Capabilities" />
+
+      <h3 className="pt-2 text-sm font-semibold text-muted-foreground">Stats</h3>
+      <ArrayEditor
+        {...f}
+        path={['socialStats']}
+        itemLabel={(item: any) => item.label}
+        createItem={() => ({ value: 0, prefix: '', suffix: '', decimals: 0, label: 'New stat', tone: 'primary' })}
+        renderItem={(itemPath) => <>
+          <NumberField {...f} path={[...itemPath, 'value']} label="Value" />
+          <NumberField {...f} path={[...itemPath, 'decimals']} label="Decimals" />
+          <TextField {...f} path={[...itemPath, 'prefix']} label="Prefix" />
+          <TextField {...f} path={[...itemPath, 'suffix']} label="Suffix" />
+          <TextField {...f} path={[...itemPath, 'label']} label="Label" />
+          <SelectField {...f} path={[...itemPath, 'tone']} label="Color" options={TONE_OPTIONS} />
+        </>}
+      />
+
+      <h3 className="pt-2 text-sm font-semibold text-muted-foreground">Capabilities</h3>
+      <p className="-mt-3 text-xs text-muted-foreground">Each capability opens a detail popup on the site when clicked — add a description to fill it in.</p>
+      <ArrayEditor
+        {...f}
+        path={['socialCapabilities']}
+        itemLabel={(item: any) => typeof item === 'string' ? item : item.label}
+        createItem={() => ({ icon: 'sparkles', label: 'New capability', description: '' })}
+        renderItem={(itemPath) => <>
+          <SelectField {...f} path={[...itemPath, 'icon']} label="Icon" options={ICON_OPTIONS} />
+          <TextField {...f} path={[...itemPath, 'label']} label="Label" />
+          <div className="sm:col-span-2"><TextAreaField {...f} path={[...itemPath, 'description']} label="Detail (shown in the popup)" /></div>
+        </>}
+      />
     </>,
   },
   {
@@ -284,7 +314,7 @@ const sections: EditorSection[] = [
     id: 'work',
     label: 'Work',
     icon: FolderKanban,
-    description: 'Case studies shown in the Work section.',
+    description: 'Case studies shown in the Work section. Add a thumbnail image URL (Google Drive / Photos direct link) to replace the gradient art with a real image on the card and in the case study modal.',
     render: (f) => <>
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField {...f} path={['workHeading', 'eyebrow']} label="Eyebrow" />
@@ -299,13 +329,14 @@ const sections: EditorSection[] = [
         {...f}
         path={['projects']}
         itemLabel={(item: any) => item.title}
-        createItem={() => ({ title: 'New project', category: '', description: '', extendedNote: '', color: 'from-[#1e3f8f] to-[#5c8dff]', metrics: [] })}
+        createItem={() => ({ title: 'New project', category: '', description: '', extendedNote: '', color: 'from-[#1e3f8f] to-[#5c8dff]', metrics: [], thumbnailUrl: '' })}
         renderItem={(itemPath) => <>
           <TextField {...f} path={[...itemPath, 'title']} label="Title" />
           <TextField {...f} path={[...itemPath, 'category']} label="Category" />
           <div className="sm:col-span-2"><TextAreaField {...f} path={[...itemPath, 'description']} label="Card description" /></div>
           <div className="sm:col-span-2"><TextAreaField {...f} path={[...itemPath, 'extendedNote']} label="Modal extended note" /></div>
           <TextField {...f} path={[...itemPath, 'color']} label="Gradient (Tailwind from-…/to-…)" />
+          <TextField {...f} path={[...itemPath, 'thumbnailUrl']} label="Thumbnail image URL (optional)" />
           <div className="sm:col-span-2"><StringListField {...f} path={[...itemPath, 'metrics']} label="Metrics" /></div>
         </>}
       />

@@ -1,5 +1,7 @@
 export type Tone = 'primary' | 'secondary' | 'accent' | 'foreground' | 'muted'
-export type IconKey = 'search' | 'megaphone' | 'target' | 'barChart3' | 'layers' | 'repeat'
+export type IconKey =
+  | 'search' | 'megaphone' | 'target' | 'barChart3' | 'layers' | 'repeat'
+  | 'share2' | 'calendar' | 'penTool' | 'trendingUp' | 'users' | 'heart' | 'rocket' | 'sparkles'
 
 /**
  * Single source of truth for every piece of copy, number, and asset path
@@ -79,11 +81,17 @@ export const certificationsHeading = {
   heading: 'Certified across the platforms I run.',
 }
 
-export const certifications = [
-  { name: 'Google Ads Certified', issuer: 'Google Skillshop', year: '2024' },
-  { name: 'Meta Blueprint Certified', issuer: 'Meta', year: '2023' },
-  { name: 'GA4 Certified', issuer: 'Google Skillshop', year: '2023' },
-  { name: 'Inbound Marketing', issuer: 'HubSpot Academy', year: '2022' },
+export const certifications: {
+  name: string
+  issuer: string
+  year: string
+  /** Direct image link (e.g. a Google Drive "anyone with the link" share URL, or a Google Photos direct image URL). */
+  imageUrl?: string
+}[] = [
+  { name: 'Google Ads Certified', issuer: 'Google Skillshop', year: '2024', imageUrl: '' },
+  { name: 'Meta Blueprint Certified', issuer: 'Meta', year: '2023', imageUrl: '' },
+  { name: 'GA4 Certified', issuer: 'Google Skillshop', year: '2023', imageUrl: '' },
+  { name: 'Inbound Marketing', issuer: 'HubSpot Academy', year: '2022', imageUrl: '' },
 ]
 
 export const experienceHeading = {
@@ -131,17 +139,23 @@ export const socialHeading = {
   description: 'The organic side that makes paid work harder — a consistent, on-brand presence that compounds reach instead of renting it.',
 }
 
-export const socialCapabilities = [
-  'Social Media Management',
-  'Content Strategy',
-  'Content Planning & Calendars',
-  'Script Writing',
-  'Content & Trend Research',
-  'Competitor Analysis',
-  'Analytics & Reporting',
-  'Audience Engagement',
-  'Page Growth Strategy',
-  'Content Optimization',
+export const socialStats: { value: number; prefix?: string; suffix?: string; decimals?: number; label: string; tone: Tone }[] = [
+  { value: 3.2, suffix: 'x', decimals: 1, label: 'Avg. engagement lift', tone: 'primary' },
+  { value: 150, suffix: '+', decimals: 0, label: 'Content pieces / month', tone: 'secondary' },
+  { value: 6, suffix: '', decimals: 0, label: 'Platforms actively grown', tone: 'accent' },
+]
+
+export const socialCapabilities: { icon: IconKey; label: string; description?: string }[] = [
+  { icon: 'share2', label: 'Social Media Management', description: 'End-to-end management of your business profiles — publishing cadence, upkeep, and day-to-day account health, so it always looks actively run.' },
+  { icon: 'layers', label: 'Content Strategy', description: 'A content pillar and messaging framework built around your audience and goals, so every post serves a purpose instead of filling a calendar.' },
+  { icon: 'calendar', label: 'Content Planning & Calendars', description: 'Monthly and weekly content calendars mapped to campaigns, launches, and key dates, so nothing goes out last-minute.' },
+  { icon: 'penTool', label: 'Script Writing', description: 'Scroll-stopping scripts and captions written for how each platform’s audience actually watches and reads.' },
+  { icon: 'trendingUp', label: 'Content & Trend Research', description: 'Ongoing research into what’s working right now — formats, sounds, and hooks — translated into ideas your brand can actually use.' },
+  { icon: 'users', label: 'Competitor Analysis', description: 'Regular teardowns of competitor content and growth tactics to spot what’s working in your niche before it’s oversaturated.' },
+  { icon: 'barChart3', label: 'Analytics & Reporting', description: 'Clear monthly reporting on reach, engagement, and growth, with plain-language takeaways instead of raw exports.' },
+  { icon: 'heart', label: 'Audience Engagement', description: 'Active community management — replies, DMs, and comments handled promptly to keep the audience relationship warm.' },
+  { icon: 'rocket', label: 'Page Growth Strategy', description: 'A structured plan for follower and reach growth, from collaborations to platform-native growth levers.' },
+  { icon: 'sparkles', label: 'Content Optimization', description: 'Continuous refinement of formats, posting times, and hooks based on what the data says is actually working.' },
 ]
 
 export const processHeading = {
@@ -167,7 +181,16 @@ export const workHeading = {
   modalCtaLabel: 'Work together',
 }
 
-export const projects = [
+export const projects: {
+  title: string
+  category: string
+  description: string
+  extendedNote: string
+  color: string
+  metrics: string[]
+  /** Direct image link for the card/modal art (e.g. Google Drive or Google Photos direct URL). Falls back to the gradient when empty. */
+  thumbnailUrl?: string
+}[] = [
   {
     title: 'Verve Nutrition',
     category: 'DTC Supplements · Paid Social & Search',
@@ -175,6 +198,7 @@ export const projects = [
     extendedNote: 'We rebuilt the tracking foundation, ran a structured creative-testing roadmap, and reallocated spend weekly toward what the data showed was working.',
     color: 'from-[#1e3f8f] to-[#5c8dff]',
     metrics: ['+286% ROAS', '−38% CPA', '$2.1M revenue / 6mo'],
+    thumbnailUrl: '',
   },
   {
     title: 'Northpeak SaaS',
@@ -183,6 +207,7 @@ export const projects = [
     extendedNote: 'We consolidated lead scoring, rebuilt LinkedIn targeting around ICP firmographics, and tied every campaign to pipeline, not clicks.',
     color: 'from-[#8a6a2e] to-[#e0b673]',
     metrics: ['3.4x pipeline', '−46% CAC', '212 SQLs / mo'],
+    thumbnailUrl: '',
   },
   {
     title: 'Solstice Home',
@@ -191,6 +216,7 @@ export const projects = [
     extendedNote: 'We restructured the catalog feed, rebuilt PDP and checkout flows around real session data, and layered in lifecycle email to lift repeat purchase rate.',
     color: 'from-[#5e3c1c] to-[#c99461]',
     metrics: ['+164% CVR', '5.1x ROAS', '$4.6M revenue influenced'],
+    thumbnailUrl: '',
   },
 ]
 
@@ -242,7 +268,7 @@ export const siteData = {
   meta, profile, nav, hero, platformsLabel, platforms, about,
   certificationsHeading, certifications, experienceHeading, experience, educationHeading, education,
   servicesHeading, services,
-  socialHeading, socialCapabilities,
+  socialHeading, socialStats, socialCapabilities,
   processHeading, process, workHeading, projects, testimonials, performanceSnapshot, contact, footer,
 }
 

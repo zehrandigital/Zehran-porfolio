@@ -126,4 +126,12 @@ export const ICON_OPTIONS = [
   { value: 'barChart3', label: 'Bar chart' },
   { value: 'layers', label: 'Layers' },
   { value: 'repeat', label: 'Repeat' },
+  { value: 'share2', label: 'Share' },
+  { value: 'calendar', label: 'Calendar' },
+  { value: 'penTool', label: 'Pen / writing' },
+  { value: 'trendingUp', label: 'Trending up' },
+  { value: 'users', label: 'Users' },
+  { value: 'heart', label: 'Heart' },
+  { value: 'rocket', label: 'Rocket' },
+  { value: 'sparkles', label: 'Sparkles' },
 ]
